@@ -73,5 +73,46 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+  },
+
+ auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        localStorage: {
+          prefix: 'auth.'
+        },
+        token: {
+          prefix: 'access_token.',
+          property: 'access',
+          maxAge: 60,
+          global: true,
+        },
+        refreshToken: {
+          prefix: 'refresh_token.',
+          property: 'refresh',
+          data: 'refresh',
+          maxAge: 60 * 60 * 24 * 15
+        },
+        user: {
+          property: 'user',
+          autoFetch: true
+        },
+        endpoints: {
+          login: {url: '/api/token/', method: 'post'},
+          refresh: {url: '/api/token/refresh/', method: 'post'},
+          user: {url: '/api/v1/user/', method: 'get'},
+          logout: {url: '/api/v1/user_logout/', method: 'post'}
+        },
+        redirect: {
+          login: '/lk',
+          logout: '/',
+          callback: '/',
+          home: '/'
+        }
+      }
+    }
+  },
+
 }
