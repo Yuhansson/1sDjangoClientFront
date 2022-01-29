@@ -47,7 +47,7 @@ export default {
   methods: {
     async logout() {
     const logoutData = { 'refresh': this.$auth.strategy.refreshToken.get() }
-      await this.logout({ data: logoutData})
+      await this.$auth.logout({ data: logoutData})
     }
   }
 
